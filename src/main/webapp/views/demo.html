@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>测试</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <table id="student_table">
+        <thead>
+            <tr>
+                <th>学生编号</th>
+                <th>学生姓名</th>
+                <th>学生邮箱</th>
+                <th>学生性别</th>
+                <th>创建时间</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+
+    </table>
+    总记录数：总页数：上一页 第页
+    <script src="/views/static/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+           $.ajax({
+              url:"/student/selectAll",
+               data:"page=2",
+               dataType:"JSON",
+               type:"GET",
+               success:function (result) {
+                   build_student_table(result)
+               }
+           });
+        });
+        function build_student_table(result) {
+            var students=result.data.pageInfo.list;
+            $.each(students,function (index,item) {
+                var student_id=$("<td></td>").append(index,item.id)
+                var student_name=$("<td></td>").append(index,item.name)
+                var student_email=$("<td></td>").append(index,item.email)
+                var student_sex=$("<td></td>").append(index,item.sex)
+                var student_createTime=$("<td></td>").append(index,item.createTime)
+                $("<tr></tr>").append(student_id)
+                    .append(student_name)
+                    .append(student_email)
+                    .append(student_sex)
+                    .append(student_createTime)
+                    .appendTo("#student_table tbody");
+            })
+        };
+        function build_pageInfo(result) {
+            
+        }
+    </script>
+</body>
+</html>

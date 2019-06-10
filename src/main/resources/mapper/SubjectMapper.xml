@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msq.online.study.mapper.SubjectMapper">
+  <!--<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>-->
+  <resultMap id="BaseResultMap" type="Subject">
+    <id column="id" property="id" />
+    <result column="title" property="title" />
+    <result column="parent_id" property="parentId" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <collection property="courses" ofType="Course"
+                select="com.msq.online.study.mapper.CourseMapper.selectBySubjectId"
+                column="id"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, parent_id, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap" useCache="true">
+    select 
+    <include refid="Base_Column_List" />
+    from subject
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from subject
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.msq.online.study.modle.Subject" useGeneratedKeys="true" flushCache="false">
+    <!--@mbg.generated-->
+    insert into subject (title, parent_id, create_time, update_time)
+    values (#{title}, #{parentId}, #{createTime}, #{updateTime})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.msq.online.study.modle.Subject" useGeneratedKeys="true" flushCache="false">
+    <!--@mbg.generated-->
+    insert into subject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title},
+      </if>
+      <if test="parentId != null">
+        #{parentId},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.msq.online.study.modle.Subject">
+    <!--@mbg.generated-->
+    update subject
+    <set>
+      <if test="title != null">
+        title = #{title},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.msq.online.study.modle.Subject">
+    <!--@mbg.generated-->
+    update subject
+    set title = #{title},
+      parent_id = #{parentId},
+      create_time = #{createTime},
+      update_time = #{updateTime}
+    where id = #{id}
+  </update>
+  <select id="selectByTitle" resultMap="BaseResultMap" useCache="false">
+    select
+    <include refid="Base_Column_List" />
+    from subject
+    where title = #{title} ORDER BY create_time DESC
+  </select>
+</mapper>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msq.online.study.mapper.CourseMapper">
+  <!--<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>-->
+  <resultMap id="BaseResultMap" type="course">
+    <!--@mbg.generated-->
+    <id column="id" property="id" />
+    <result column="title" property="title" />
+    <result column="lesson_num" property="lessonNum" />
+    <result column="image" property="image" />
+    <result column="status" property="status" />
+    <result column="is_deleted" property="isDeleted" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="followed_num" property="followedNum" />
+    <association column="subject_id" property="subject"
+                 select="com.msq.online.study.mapper.SubjectMapper.selectByPrimaryKey" javaType="Subject"
+    />
+    <association
+            column="teacher_id" property="teacher"
+            javaType="teacher" select="com.msq.online.study.mapper.TeacherMapper.selectByPrimaryKey"
+    />
+    <collection property="chapters" ofType="Chapter" column="id"
+      select="com.msq.online.study.mapper.ChapterMapper.selectByCourseId"
+    />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, subject_id, teacher_id, title, lesson_num, image, `status`, is_deleted, create_time, 
+    update_time, followed_num,author
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap" useCache="true">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from course
+    where id =#{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from course
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.msq.online.study.modle.Course" useGeneratedKeys="true" flushCache="true">
+    <!--@mbg.generated-->
+    insert into course (subject_id, teacher_id, title, lesson_num, image, `status`, 
+      is_deleted, create_time, update_time, followed_num)
+    values (#{subject.id}, #{teacher.id}, #{title}, #{lessonNum}, #{image}, #{status},
+      #{isDeleted}, #{createTime}, #{updateTime}, #{followedNum})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.msq.online.study.modle.Course" useGeneratedKeys="true" flushCache="false">
+    <!--@mbg.generated-->
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="subject!= null">
+        subject_id,
+      </if>
+      <if test="teacher != null">
+        teacher_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="lessonNum != null">
+        lesson_num,
+      </if>
+      <if test="image != null">
+        image,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="followedNum != null">
+        followed_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="subject != null">
+        #{subject.id},
+      </if>
+      <if test="teacher != null">
+        #{teacher.id},
+      </if>
+      <if test="title != null">
+        #{title},
+      </if>
+      <if test="lessonNum != null">
+        #{lessonNum},
+      </if>
+      <if test="image != null">
+        #{image},
+      </if>
+      <if test="status != null">
+        #{status},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+      <if test="followedNum != null">
+        #{followedNum},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.msq.online.study.modle.Course">
+    <!--@mbg.generated-->
+    update course
+    <set>
+      <if test="subject != null">
+        subject_id = #{subject.id},
+      </if>
+      <if test="teacher != null">
+        teacher_id = #{teacher.id},
+      </if>
+      <if test="title != null">
+        title = #{title},
+      </if>
+      <if test="lessonNum != null">
+        lesson_num = #{lessonNum},
+      </if>
+      <if test="image != null">
+        image = #{image},
+      </if>
+      <if test="status != null">
+        `status` = #{status},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime},
+      </if>
+      <if test="followedNum != null">
+        followed_num = #{followedNum},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.msq.online.study.modle.Course">
+    <!--@mbg.generated-->
+    update course
+    set subject_id = #{subject.id},
+      teacher_id = #{teacher.id},
+      title = #{title},
+      lesson_num = #{lessonNum},
+      image = #{image},
+      `status` = #{status},
+      is_deleted = #{isDeleted},
+      create_time = #{createTime},
+      update_time = #{updateTime},
+      followed_num = #{followedNum}
+    where id = #{id}
+  </update>
+
+<!--auto generated by MybatisCodeHelper on 2019-05-25-->
+    <select id="selectAllCourse" resultMap="BaseResultMap" useCache="false">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM course ORDER BY create_time DESC
+    </select>
+  <select id="selectBySubjectId" resultMap="BaseResultMap" useCache="false">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM course
+    WHERE subject_id =#{subjectId} ORDER BY create_time DESC
+  </select>
+  <select id="selectBySubjectIdOrderByFollowedNum" resultMap="BaseResultMap" useCache="false">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM course
+    WHERE subject_id =#{subjectId} ORDER BY followed_num DESC
+  </select>
+  <select id="selectAllCourseByFollowedNum" resultMap="BaseResultMap" useCache="false">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM course ORDER BY followed_num DESC
+  </select>
+    <select id="selectByKeyWord" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM  course
+    WHERE MATCH (title,author)  AGAINST (#{queryText}IN BOOLEAN MODE)
+    </select>
+    <select id="selectByTeacherId" resultType="com.msq.online.study.modle.Course">
+      SELECT
+      <include refid="Base_Column_List" />
+      FROM course
+      WHERE teacher_id =#{teacherId}  ORDER BY create_time DESC
+    </select>
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!--获取自动生成的主键-->
+		<setting name="useGeneratedKeys" value="true"/>
+
+		<setting name="cacheEnabled" value="false"/>
+		<!--开启延迟加载功能-->
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<!-- 将积极加载改为消息加载即按需加载 -->
+		<setting name="aggressiveLazyLoading" value="false" />
+		<!-- 指定对象的哪个方法触发一次延迟加载-->
+		<setting name="lazyLoadTriggerMethods" value="clone" />
+		<!--开启映射自动转换成驼峰命名-->
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<!--日志技术-->
+		<setting name="logImpl" value="LOG4J" />
+	</settings>
+	<typeAliases>
+		<package name="com.msq.online.study.modle"/>
+	</typeAliases>
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+	</plugins>
+</configuration>

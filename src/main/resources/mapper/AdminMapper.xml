@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msq.online.study.mapper.AdminMapper">
+  <resultMap id="BaseResultMap" type="com.msq.online.study.modle.Admin">
+    <!--@mbg.generated-->
+    <id column="id" property="id" />
+    <result column="username" property="username" />
+    <result column="password" property="password" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="number" property="number" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, username, `password`, create_time, update_time, `number`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from admin
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.msq.online.study.modle.Admin">
+    <!--@mbg.generated-->
+    insert into admin (id, username, `password`, create_time, update_time, `number`)
+    values (#{id}, #{username}, #{password}, #{createTime}, #{updateTime}, #{number})
+  </insert>
+  <insert id="insertSelective" parameterType="com.msq.online.study.modle.Admin">
+    <!--@mbg.generated-->
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="number != null">
+        `number`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="username != null">
+        #{username},
+      </if>
+      <if test="password != null">
+        #{password},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+      <if test="number != null">
+        #{number},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.msq.online.study.modle.Admin">
+    <!--@mbg.generated-->
+    update admin
+    <set>
+      <if test="username != null">
+        username = #{username},
+      </if>
+      <if test="password != null">
+        `password` = #{password},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime},
+      </if>
+      <if test="number != null">
+        `number` = #{number},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.msq.online.study.modle.Admin">
+    <!--@mbg.generated-->
+    update admin
+    set username = #{username},
+      `password` = #{password},
+      create_time = #{createTime},
+      update_time = #{updateTime},
+      `number` = #{number}
+    where id = #{id}
+  </update>
+</mapper>

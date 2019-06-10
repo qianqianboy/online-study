@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msq.online.study.mapper.TeacherMapper">
+  <resultMap id="BaseResultMap" type="com.msq.online.study.modle.Teacher">
+    <!--@mbg.generated-->
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="number" property="number" />
+    <result column="password" property="password" />
+    <result column="intro" property="intro" />
+    <result column="image" property="image" />
+    <result column="sex" property="sex" />
+    <result column="is_deleted" property="isDeleted" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, `number`, `password`, intro, image, sex, is_deleted, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from teacher
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.msq.online.study.modle.Teacher" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into teacher (`name`, `number`, `password`, intro, image, sex, is_deleted, 
+      create_time, update_time)
+    values (#{name}, #{number}, #{password}, #{intro}, #{image}, #{sex}, #{isDeleted}, 
+      #{createTime}, #{updateTime})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.msq.online.study.modle.Teacher" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="number != null">
+        `number`,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="intro != null">
+        intro,
+      </if>
+      <if test="image != null">
+        image,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="number != null">
+        #{number},
+      </if>
+      <if test="password != null">
+        #{password},
+      </if>
+      <if test="intro != null">
+        #{intro},
+      </if>
+      <if test="image != null">
+        #{image},
+      </if>
+      <if test="sex != null">
+        #{sex},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.msq.online.study.modle.Teacher">
+    <!--@mbg.generated-->
+    update teacher
+    <set>
+      <if test="name != null">
+        `name` = #{name},
+      </if>
+      <if test="number != null">
+        `number` = #{number},
+      </if>
+      <if test="password != null">
+        `password` = #{password},
+      </if>
+      <if test="intro != null">
+        intro = #{intro},
+      </if>
+      <if test="image != null">
+        image = #{image},
+      </if>
+      <if test="sex != null">
+        sex = #{sex},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.msq.online.study.modle.Teacher">
+    <!--@mbg.generated-->
+    update teacher
+    set `name` = #{name},
+      `number` = #{number},
+      `password` = #{password},
+      intro = #{intro},
+      image = #{image},
+      sex = #{sex},
+      is_deleted = #{isDeleted},
+      create_time = #{createTime},
+      update_time = #{updateTime}
+    where id = #{id}
+  </update>
+    <select id="selectByNumber" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      from teacher
+      where number = #{number}
+    </select>
+</mapper>

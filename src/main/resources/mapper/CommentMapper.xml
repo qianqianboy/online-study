@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msq.online.study.mapper.CommentMapper">
+  <resultMap id="BaseResultMap" type="com.msq.online.study.modle.Comment">
+    <!--@mbg.generated-->
+    <id column="id" property="id" />
+    <result column="course_id" property="courseId"/>
+    <result column="content" property="content" />
+    <result column="create_time" property="createTime" />
+    <result column="is_deleted" property="isDeleted" />
+    <association column="student_id" property="student"
+      javaType="Student" select="com.msq.online.study.mapper.StudentMapper.selectByPrimaryKey"
+    />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, student_id, course_id, content, create_time, is_deleted
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from comment
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.msq.online.study.modle.Comment" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into comment (student_id, course_id, content, create_time, is_deleted)
+    values (#{studentId}, #{courseId}, #{content}, #{createTime}, #{isDeleted})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.msq.online.study.modle.Comment" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="courseId != null">
+        course_id,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        #{studentId},
+      </if>
+      <if test="courseId != null">
+        #{courseId},
+      </if>
+      <if test="content != null">
+        #{content},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.msq.online.study.modle.Comment">
+    <!--@mbg.generated-->
+    update comment
+    <set>
+      <if test="studentId != null">
+        student_id = #{studentId},
+      </if>
+      <if test="courseId != null">
+        course_id = #{courseId},
+      </if>
+      <if test="content != null">
+        content = #{content},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.msq.online.study.modle.Comment">
+    <!--@mbg.generated-->
+    update comment
+    set student_id = #{studentId},
+      course_id = #{courseId},
+      content = #{content},
+      create_time = #{createTime},
+      is_deleted = #{isDeleted}
+    where id = #{id}
+  </update>
+  <select id="selectByCourseId" resultMap="BaseResultMap">
+    SELECT *
+    FROM `comment`
+    WHERE course_id=#{courseId} ;
+  </select>
+
+</mapper>
